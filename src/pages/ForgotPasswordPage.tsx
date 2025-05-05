@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Logo } from '@/components/Logo';
+import Logo from '@/components/Logo';
 import { ForgotPasswordForm } from '@/components/auth/ForgotPasswordForm';
 
 const ForgotPasswordPage = () => {
