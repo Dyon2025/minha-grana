@@ -11,6 +11,7 @@ import {
   User,
   LogOut,
 } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
 
 type NavItemProps = {
   href: string;
@@ -96,6 +97,14 @@ export const SidebarNav = () => {
           isActive={currentPath === "/profile"}
         >
           Perfil
+        </NavItem>
+        
+        <NavItem 
+          href="https://wa.me/557199622786" 
+          icon={<MessageSquare size={18} className="text-green-500" />} 
+          isActive={false}
+        >
+          <span className="text-green-500">WhatsApp</span>
         </NavItem>
 
         <div className="mt-auto pt-4 border-t border-gray-100 mt-4">
