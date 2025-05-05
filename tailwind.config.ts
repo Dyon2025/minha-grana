@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+                minhagrana: {
+                    primary: '#27ae60',
+                    'primary-dark': '#219653',
+                    'primary-light': '#6FCF97',
+                    danger: '#EB5757',
+                    secondary: '#F2F2F2',
+                    'text-primary': '#333333',
+                    'text-secondary': '#828282',
+                },
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
