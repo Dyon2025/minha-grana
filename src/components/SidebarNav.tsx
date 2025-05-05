@@ -5,7 +5,7 @@ import {
   LayoutDashboard, 
   Wallet, 
   Calendar, 
-  Category, 
+  FolderTree, // Replacing Category with FolderTree
   FileText,
   Target, 
   User,
@@ -68,7 +68,7 @@ export const SidebarNav = () => {
         
         <NavItem 
           href="/categories" 
-          icon={<Category size={18} />} 
+          icon={<FolderTree size={18} />} 
           isActive={currentPath === "/categories"}
         >
           Categorias

@@ -73,8 +73,7 @@ export const MonthSelector: React.FC<MonthSelectorProps> = ({
           variant={currentView === "month" ? "default" : "outline"} 
           size="sm"
           onClick={() => onSelectView("month")}
-          className="bg-minhagrana-primary text-white"
-          className="h-8"
+          className="h-8 bg-minhagrana-primary text-white"
         >
           Mês
         </Button>
