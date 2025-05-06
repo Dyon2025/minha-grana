@@ -9,7 +9,7 @@ type AuthContextType = {
   user: User | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, username: string) => Promise<void>;
+  signUp: (email: string, password: string, username: string, phone: string) => Promise<void>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
 };
@@ -77,24 +77,44 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const signUp = async (email: string, password: string, username: string) => {
+  const signUp = async (email: string, password: string, username: string, phone: string) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signUp({
+      const { error, data } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
             username,
+            phone,
           },
         },
       });
 
       if (error) throw error;
       
+      // Send welcome message via webhook
+      try {
+        await fetch('https://n8n.auto375bot.xyz/webhook/minhagrana', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: username,
+            email: email,
+            phone: phone
+          })
+        });
+        
+        console.log('Webhook sent for welcome message');
+      } catch (webhookError) {
+        console.error('Failed to send welcome webhook:', webhookError);
+      }
+      
       toast({
         title: "Conta criada com sucesso",
-        description: "Verifique seu email para confirmar sua conta",
+        description: "Verifique seu email e WhatsApp para confirmar sua conta",
       });
       
       navigate('/login');

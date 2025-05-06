@@ -9,24 +9,227 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      user_id: {
+      categoria_trasacoes: {
         Row: {
-          id: string
-          max_transactions: number | null
-          transaction_count: number | null
-          type: string | null
+          created_at: string
+          descricao: string
+          id: number
+          usuario_id: number
         }
         Insert: {
-          id: string
-          max_transactions?: number | null
-          transaction_count?: number | null
-          type?: string | null
+          created_at?: string
+          descricao: string
+          id?: number
+          usuario_id: number
         }
         Update: {
-          id?: string
-          max_transactions?: number | null
-          transaction_count?: number | null
-          type?: string | null
+          created_at?: string
+          descricao?: string
+          id?: number
+          usuario_id?: number
+        }
+        Relationships: []
+      }
+      consentimentos_usuarios: {
+        Row: {
+          data_consentimento: string | null
+          id: number
+          ip_origem: string | null
+          status: boolean | null
+          tipo_consentimento: string
+          usuario_id: number
+          versao_politica: string
+        }
+        Insert: {
+          data_consentimento?: string | null
+          id?: number
+          ip_origem?: string | null
+          status?: boolean | null
+          tipo_consentimento: string
+          usuario_id: number
+          versao_politica: string
+        }
+        Update: {
+          data_consentimento?: string | null
+          id?: number
+          ip_origem?: string | null
+          status?: boolean | null
+          tipo_consentimento?: string
+          usuario_id?: number
+          versao_politica?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "consentimentos_usuarios_usuario_id_fkey"
+            columns: ["usuario_id"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      logs_acesso: {
+        Row: {
+          data_hora: string | null
+          detalhes: Json | null
+          dispositivo: string | null
+          id: number
+          ip_origem: string | null
+          status: string | null
+          tipo_evento: string
+          usuario_id: number | null
+        }
+        Insert: {
+          data_hora?: string | null
+          detalhes?: Json | null
+          dispositivo?: string | null
+          id?: number
+          ip_origem?: string | null
+          status?: string | null
+          tipo_evento: string
+          usuario_id?: number | null
+        }
+        Update: {
+          data_hora?: string | null
+          detalhes?: Json | null
+          dispositivo?: string | null
+          id?: number
+          ip_origem?: string | null
+          status?: string | null
+          tipo_evento?: string
+          usuario_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "logs_acesso_usuario_id_fkey"
+            columns: ["usuario_id"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      solicitacoes_lgpd: {
+        Row: {
+          data_conclusao: string | null
+          data_solicitacao: string | null
+          id: number
+          justificativa: string | null
+          status: string
+          tipo_solicitacao: string
+          usuario_id: number
+        }
+        Insert: {
+          data_conclusao?: string | null
+          data_solicitacao?: string | null
+          id?: number
+          justificativa?: string | null
+          status?: string
+          tipo_solicitacao: string
+          usuario_id: number
+        }
+        Update: {
+          data_conclusao?: string | null
+          data_solicitacao?: string | null
+          id?: number
+          justificativa?: string | null
+          status?: string
+          tipo_solicitacao?: string
+          usuario_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "solicitacoes_lgpd_usuario_id_fkey"
+            columns: ["usuario_id"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      transacoes: {
+        Row: {
+          categoria_id: number
+          created_at: string
+          data: string
+          descricao: string
+          id: number
+          mes: string
+          pagador: string | null
+          recebedor: string | null
+          tipo: string
+          usuario_id: number
+          valor: number
+        }
+        Insert: {
+          categoria_id: number
+          created_at?: string
+          data: string
+          descricao: string
+          id?: number
+          mes: string
+          pagador?: string | null
+          recebedor?: string | null
+          tipo: string
+          usuario_id: number
+          valor: number
+        }
+        Update: {
+          categoria_id?: number
+          created_at?: string
+          data?: string
+          descricao?: string
+          id?: number
+          mes?: string
+          pagador?: string | null
+          recebedor?: string | null
+          tipo?: string
+          usuario_id?: number
+          valor?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transacoes_categoria_id_fkey"
+            columns: ["categoria_id"]
+            isOneToOne: false
+            referencedRelation: "categoria_trasacoes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      usuarios: {
+        Row: {
+          aceite_termos: boolean | null
+          celular: string
+          created_at: string | null
+          data_aceite_termos: string | null
+          email: string
+          id: number
+          nome: string
+          status: string | null
+          ultima_atualizacao: string | null
+        }
+        Insert: {
+          aceite_termos?: boolean | null
+          celular: string
+          created_at?: string | null
+          data_aceite_termos?: string | null
+          email: string
+          id?: number
+          nome: string
+          status?: string | null
+          ultima_atualizacao?: string | null
+        }
+        Update: {
+          aceite_termos?: boolean | null
+          celular?: string
+          created_at?: string | null
+          data_aceite_termos?: string | null
+          email?: string
+          id?: number
+          nome?: string
+          status?: string | null
+          ultima_atualizacao?: string | null
         }
         Relationships: []
       }

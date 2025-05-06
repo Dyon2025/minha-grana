@@ -22,6 +22,9 @@ const formSchema = z.object({
     message: "O nome de usuário deve ter pelo menos 3 caracteres",
   }),
   email: z.string().email({ message: "Email inválido" }),
+  phone: z.string().min(10, {
+    message: "O telefone deve ter pelo menos 10 dígitos",
+  }),
   password: z.string().min(6, {
     message: "A senha deve ter pelo menos 6 caracteres",
   }),
@@ -39,13 +42,14 @@ export const RegisterForm = () => {
     defaultValues: {
       username: "",
       email: "",
+      phone: "",
       password: "",
       confirmPassword: "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await signUp(values.email, values.password, values.username);
+    await signUp(values.email, values.password, values.username, values.phone);
   };
 
   return (
@@ -80,6 +84,19 @@ export const RegisterForm = () => {
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input placeholder="seu@email.com" {...field} disabled={loading} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Telefone</FormLabel>
+                <FormControl>
+                  <Input placeholder="(XX) XXXXX-XXXX" {...field} disabled={loading} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
