@@ -4,13 +4,19 @@ import { Outlet } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { SidebarNav } from '@/components/SidebarNav';
 import { useAuth } from '@/contexts/AuthContext';
+import Logo from '@/components/Logo';
 
 export const MainLayout = () => {
   const { user, signOut } = useAuth();
   
   return (
     <div className="flex min-h-screen">
-      <SidebarNav />
+      <div className="w-64 bg-white border-r border-gray-200">
+        <div className="p-4 border-b border-gray-200">
+          <Logo />
+        </div>
+        <SidebarNav />
+      </div>
       <div className="flex-1 flex flex-col">
         <Header 
           username={user?.user_metadata?.username || 'Usuário'} 

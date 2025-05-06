@@ -5,7 +5,7 @@ import {
   LayoutDashboard, 
   Wallet, 
   Calendar, 
-  FolderTree, // Replacing Category with FolderTree
+  FolderTree,
   FileText,
   Target, 
   User,
@@ -41,82 +41,80 @@ export const SidebarNav = () => {
   const currentPath = location.pathname;
 
   return (
-    <aside className="w-64 bg-white border-r border-gray-200 min-h-screen-no-header">
-      <nav className="p-4 flex flex-col gap-1">
+    <nav className="p-4 flex flex-col gap-1">
+      <NavItem 
+        href="/dashboard" 
+        icon={<LayoutDashboard size={18} />} 
+        isActive={currentPath === "/dashboard"}
+      >
+        Dashboard
+      </NavItem>
+      
+      <NavItem 
+        href="/transactions" 
+        icon={<Wallet size={18} />} 
+        isActive={currentPath === "/transactions"}
+      >
+        Transações
+      </NavItem>
+      
+      <NavItem 
+        href="/upcoming" 
+        icon={<Calendar size={18} />} 
+        isActive={currentPath === "/upcoming"}
+      >
+        Lançamentos Futuros
+      </NavItem>
+      
+      <NavItem 
+        href="/categories" 
+        icon={<FolderTree size={18} />} 
+        isActive={currentPath === "/categories"}
+      >
+        Categorias
+      </NavItem>
+      
+      <NavItem 
+        href="/reports" 
+        icon={<FileText size={18} />} 
+        isActive={currentPath === "/reports"}
+      >
+        Relatórios
+      </NavItem>
+      
+      <NavItem 
+        href="/goals" 
+        icon={<Target size={18} />} 
+        isActive={currentPath === "/goals"}
+      >
+        Metas
+      </NavItem>
+      
+      <NavItem 
+        href="/profile" 
+        icon={<User size={18} />} 
+        isActive={currentPath === "/profile"}
+      >
+        Perfil
+      </NavItem>
+      
+      <NavItem 
+        href="https://wa.me/557199622786" 
+        icon={<MessageSquare size={18} className="text-minhagrana-primary" />} 
+        isActive={false}
+      >
+        <span className="text-minhagrana-primary">WhatsApp</span>
+      </NavItem>
+
+      <div className="mt-auto pt-4 border-t border-gray-100 mt-4">
         <NavItem 
-          href="/dashboard" 
-          icon={<LayoutDashboard size={18} />} 
-          isActive={currentPath === "/dashboard"}
-        >
-          Dashboard
-        </NavItem>
-        
-        <NavItem 
-          href="/transactions" 
-          icon={<Wallet size={18} />} 
-          isActive={currentPath === "/transactions"}
-        >
-          Transações
-        </NavItem>
-        
-        <NavItem 
-          href="/upcoming" 
-          icon={<Calendar size={18} />} 
-          isActive={currentPath === "/upcoming"}
-        >
-          Lançamentos Futuros
-        </NavItem>
-        
-        <NavItem 
-          href="/categories" 
-          icon={<FolderTree size={18} />} 
-          isActive={currentPath === "/categories"}
-        >
-          Categorias
-        </NavItem>
-        
-        <NavItem 
-          href="/reports" 
-          icon={<FileText size={18} />} 
-          isActive={currentPath === "/reports"}
-        >
-          Relatórios
-        </NavItem>
-        
-        <NavItem 
-          href="/goals" 
-          icon={<Target size={18} />} 
-          isActive={currentPath === "/goals"}
-        >
-          Metas
-        </NavItem>
-        
-        <NavItem 
-          href="/profile" 
-          icon={<User size={18} />} 
-          isActive={currentPath === "/profile"}
-        >
-          Perfil
-        </NavItem>
-        
-        <NavItem 
-          href="https://wa.me/557199622786" 
-          icon={<MessageSquare size={18} className="text-green-500" />} 
+          href="/logout" 
+          icon={<LogOut size={18} />} 
           isActive={false}
         >
-          <span className="text-green-500">WhatsApp</span>
+          Sair
         </NavItem>
-
-        <div className="mt-auto pt-4 border-t border-gray-100 mt-4">
-          <NavItem 
-            href="/logout" 
-            icon={<LogOut size={18} />} 
-            isActive={false}
-          >
-            Sair
-          </NavItem>
-        </div>
-      </nav>
-    </aside>
+      </div>
+    </nav>
   );
 };

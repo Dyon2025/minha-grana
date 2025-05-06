@@ -64,9 +64,9 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
                 minhagrana: {
-                    primary: '#27ae60',
-                    'primary-dark': '#219653',
-                    'primary-light': '#6FCF97',
+                    primary: '#2e65c9',
+                    'primary-dark': '#2551a0',
+                    'primary-light': '#5887df',
                     danger: '#EB5757',
                     secondary: '#F2F2F2',
                     'text-primary': '#333333',
