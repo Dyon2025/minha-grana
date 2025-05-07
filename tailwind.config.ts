@@ -64,14 +64,19 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
                 minhagrana: {
-                    primary: '#2e65c9',
-                    'primary-dark': '#2551a0',
-                    'primary-light': '#5887df',
+                    primary: '#007BFF',
+                    'primary-dark': '#0056b3',
+                    'primary-light': '#3a95ff',
                     danger: '#EB5757',
                     secondary: '#F2F2F2',
                     'text-primary': '#333333',
                     'text-secondary': '#828282',
+                    background: '#f5f9ff',
                 },
+			},
+			fontFamily: {
+				poppins: ['Poppins', 'sans-serif'],
+				roboto: ['Roboto', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

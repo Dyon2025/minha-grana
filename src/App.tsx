@@ -11,6 +11,9 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import DashboardPage from "./pages/DashboardPage";
+import TransactionsPage from "./pages/TransactionsPage";
+import CategoriesPage from "./pages/CategoriesPage";
+import GoalsPage from "./pages/GoalsPage";
 import ProfilePage from "./pages/ProfilePage";
 import NotFound from "./pages/NotFound";
 
@@ -41,11 +44,11 @@ const App = () => (
               }
             >
               <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/transactions" element={<>Página de Transações</>} />
+              <Route path="/transactions" element={<TransactionsPage />} />
               <Route path="/upcoming" element={<>Lançamentos Futuros</>} />
-              <Route path="/categories" element={<>Categorias</>} />
+              <Route path="/categories" element={<CategoriesPage />} />
               <Route path="/reports" element={<>Relatórios</>} />
-              <Route path="/goals" element={<>Metas</>} />
+              <Route path="/goals" element={<GoalsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Route>
             

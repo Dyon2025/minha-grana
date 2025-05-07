@@ -33,12 +33,15 @@ const CategoriesPage = () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from('categoria_transacoes')
+        .from('categoria_trasacoes')
         .select('*')
         .order('descricao');
 
       if (error) throw error;
-      setCategories(data || []);
+      
+      // Explicitly cast the data to Category[] to ensure type safety
+      const categoriesData = data as Category[];
+      setCategories(categoriesData || []);
     } catch (error: any) {
       toast({
         title: "Erro ao carregar categorias",
@@ -53,9 +56,9 @@ const CategoriesPage = () => {
   const handleAddCategory = async (categoryData: Omit<Category, 'id'>) => {
     try {
       const { data, error } = await supabase
-        .from('categoria_transacoes')
+        .from('categoria_trasacoes')
         .insert([{
-          ...categoryData,
+          descricao: categoryData.descricao,
           usuario_id: user?.id,
         }])
         .select();
@@ -81,7 +84,7 @@ const CategoriesPage = () => {
   const handleUpdateCategory = async (categoryData: Category) => {
     try {
       const { data, error } = await supabase
-        .from('categoria_transacoes')
+        .from('categoria_trasacoes')
         .update({
           descricao: categoryData.descricao,
         })
@@ -128,7 +131,7 @@ const CategoriesPage = () => {
       }
       
       const { error } = await supabase
-        .from('categoria_transacoes')
+        .from('categoria_trasacoes')
         .delete()
         .eq('id', id);
 

@@ -45,7 +45,7 @@ const TransactionsPage = () => {
   const fetchCategories = async () => {
     try {
       const { data, error } = await supabase
-        .from('categoria_transacoes')
+        .from('categoria_trasacoes')
         .select('*');
 
       if (error) throw error;
