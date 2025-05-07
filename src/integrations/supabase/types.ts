@@ -28,7 +28,15 @@ export type Database = {
           id?: number
           usuario_id?: number
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "categoria_trasacoes_usuario_id_fkey"
+            columns: ["usuario_id"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       consentimentos_usuarios: {
         Row: {
@@ -115,7 +123,7 @@ export type Database = {
           data_solicitacao: string | null
           id: number
           justificativa: string | null
-          status: string
+          status: string | null
           tipo_solicitacao: string
           usuario_id: number
         }
@@ -124,7 +132,7 @@ export type Database = {
           data_solicitacao?: string | null
           id?: number
           justificativa?: string | null
-          status?: string
+          status?: string | null
           tipo_solicitacao: string
           usuario_id: number
         }
@@ -133,7 +141,7 @@ export type Database = {
           data_solicitacao?: string | null
           id?: number
           justificativa?: string | null
-          status?: string
+          status?: string | null
           tipo_solicitacao?: string
           usuario_id?: number
         }
@@ -193,6 +201,13 @@ export type Database = {
             columns: ["categoria_id"]
             isOneToOne: false
             referencedRelation: "categoria_trasacoes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transacoes_usuario_id_fkey"
+            columns: ["usuario_id"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
             referencedColumns: ["id"]
           },
         ]
