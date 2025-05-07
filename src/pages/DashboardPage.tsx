@@ -4,12 +4,14 @@ import { CircleChart } from '@/components/CircleChart';
 import { MonthSelector } from '@/components/MonthSelector';
 import { SummaryCard } from '@/components/SummaryCard';
 import { TransactionItem } from '@/components/TransactionItem';
-import { TrendingUp, TrendingDown, Wallet, ArrowRight } from 'lucide-react';
+import { TrendingUp, TrendingDown, Wallet, ArrowRight, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
 const DashboardPage = () => {
+  const navigate = useNavigate();
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentView, setCurrentView] = useState<"day" | "week" | "month">("month");
@@ -32,29 +34,52 @@ const DashboardPage = () => {
     }
   };
 
-  // Dados de exemplo para o gráfico
+  // Redirecionamento para a página de transações com tipo predefinido
+  const handleNewTransaction = (type: 'receita' | 'despesa') => {
+    navigate(`/transactions?new=${type}`);
+  };
+
+  // Dados de exemplo para o gráfico - receitas zeradas conforme solicitado
   const chartData = [
-    { name: "Receitas", value: 30, color: "#27ae60" },
+    { name: "Receitas", value: 0, color: "#27ae60" },
     { name: "Despesas", value: 0, color: "#EB5757" },
   ];
 
-  // Transações de exemplo
-  const transactions = [
-    {
-      id: 1,
-      title: "Serviço de streaming",
-      amount: 30,
-      date: new Date(),
-      type: "income" as const,
-      category: "IPTV",
-    }
+  // Categorias para o gráfico de despesas por categoria
+  const categoryChartData = [
+    { name: "IPTV", value: 0, color: "#0088FE" },
+    { name: "Alimentação", value: 0, color: "#00C49F" },
+    { name: "Transporte", value: 0, color: "#FFBB28" },
+    { name: "Lazer", value: 0, color: "#FF8042" },
   ];
+
+  // Transações de exemplo - zeradas
+  const transactions = [];
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Dashboard</h1>
         
+        <div className="flex gap-2">
+          <Button 
+            onClick={() => handleNewTransaction('receita')} 
+            className="bg-minhagrana-primary text-white"
+          >
+            <Plus className="mr-1" size={18} />
+            Nova Receita
+          </Button>
+          <Button 
+            onClick={() => handleNewTransaction('despesa')} 
+            className="bg-minhagrana-danger text-white"
+          >
+            <Plus className="mr-1" size={18} />
+            Nova Despesa
+          </Button>
+        </div>
+      </div>
+      
+      <div className="flex items-center justify-between mb-6">
         <MonthSelector
           currentMonth={currentMonth}
           currentYear={currentYear}
@@ -68,7 +93,7 @@ const DashboardPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <SummaryCard
           title="Receitas do Mês"
-          amount="R$ 30,00"
+          amount="R$ 0,00"
           subtitle="Total de receitas do Mês"
           icon={<TrendingUp className="w-6 h-6" />}
           variant="income"
@@ -84,7 +109,7 @@ const DashboardPage = () => {
         
         <SummaryCard
           title="Saldo do Mês"
-          amount="R$ 30,00"
+          amount="R$ 0,00"
           subtitle={`${format(new Date(currentYear, currentMonth), 'MMMM yyyy')}`}
           icon={<Wallet className="w-6 h-6" />}
           variant="balance"
@@ -110,10 +135,10 @@ const DashboardPage = () => {
                 <div className="w-3 h-3 bg-minhagrana-primary rounded-full mr-2"></div>
                 <span className="text-sm">Receitas</span>
               </div>
-              <span className="text-sm font-medium">R$ 30,00</span>
+              <span className="text-sm font-medium">R$ 0,00</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
-              <div className="bg-minhagrana-primary h-2 rounded-full" style={{ width: '100%' }}></div>
+              <div className="bg-minhagrana-primary h-2 rounded-full" style={{ width: '0%' }}></div>
             </div>
           </div>
           
@@ -133,9 +158,9 @@ const DashboardPage = () => {
           <div className="mt-6">
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm font-medium">Saldo do período</span>
-              <span className="text-sm font-bold text-minhagrana-primary">R$ 30,00</span>
+              <span className="text-sm font-bold text-minhagrana-primary">R$ 0,00</span>
             </div>
-            <p className="text-sm text-gray-500">Suas receitas superaram as despesas em R$ 30,00</p>
+            <p className="text-sm text-gray-500">Adicione suas primeiras transações</p>
           </div>
           
           <div className="mt-8 flex justify-center">
@@ -146,7 +171,7 @@ const DashboardPage = () => {
         <div className="lg:col-span-1 bg-white rounded-md shadow-sm p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="font-medium">Últimos Registros</h2>
-            <Button variant="ghost" className="text-minhagrana-primary hover:text-minhagrana-primary-dark p-0 h-auto">
+            <Button variant="ghost" className="text-minhagrana-primary hover:text-minhagrana-primary-dark p-0 h-auto" onClick={() => navigate('/transactions')}>
               Ver todos <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
           </div>
@@ -176,6 +201,25 @@ const DashboardPage = () => {
                 Nenhuma transação registrada
               </div>
             )}
+          </div>
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white rounded-md shadow-sm p-6">
+          <h2 className="font-medium mb-4">Despesas por Categoria</h2>
+          <div className="h-[300px] flex justify-center items-center">
+            <CircleChart 
+              data={categoryChartData} 
+              title="Distribuição de Despesas"
+            />
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-md shadow-sm p-6">
+          <h2 className="font-medium mb-4">Evolução Mensal</h2>
+          <div className="h-[300px] flex justify-center items-center">
+            <p className="text-gray-500">Gráfico de evolução mensal estará disponível após o registro de transações</p>
           </div>
         </div>
       </div>
