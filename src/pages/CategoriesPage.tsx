@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, Trash2, PenLine } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -39,9 +38,7 @@ const CategoriesPage = () => {
 
       if (error) throw error;
       
-      // Explicitly cast the data to Category[] to ensure type safety
-      const categoriesData = data as Category[];
-      setCategories(categoriesData || []);
+      setCategories(data || []);
     } catch (error: any) {
       toast({
         title: "Erro ao carregar categorias",
@@ -57,10 +54,10 @@ const CategoriesPage = () => {
     try {
       const { data, error } = await supabase
         .from('categoria_trasacoes')
-        .insert([{
+        .insert({
           descricao: categoryData.descricao,
-          usuario_id: user?.id,
-        }])
+          usuario_id: Number(user?.id),
+        })
         .select();
 
       if (error) throw error;

@@ -27,7 +27,10 @@ export const MainLayout = () => {
           <Outlet />
         </main>
       </div>
-      <WhatsAppButton />
+      {/* WhatsApp button positioned at bottom left corner */}
+      <div className="fixed left-6 bottom-6 z-50">
+        <WhatsAppButton />
+      </div>
     </div>
   );
 };

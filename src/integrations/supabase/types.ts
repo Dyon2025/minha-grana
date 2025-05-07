@@ -117,6 +117,39 @@ export type Database = {
           },
         ]
       }
+      metas: {
+        Row: {
+          created_at: string
+          data_fim: string
+          data_inicio: string
+          descricao: string
+          id: number
+          usuario_id: number
+          valor_atual: number
+          valor_meta: number
+        }
+        Insert: {
+          created_at?: string
+          data_fim: string
+          data_inicio: string
+          descricao: string
+          id?: number
+          usuario_id: number
+          valor_atual?: number
+          valor_meta: number
+        }
+        Update: {
+          created_at?: string
+          data_fim?: string
+          data_inicio?: string
+          descricao?: string
+          id?: number
+          usuario_id?: number
+          valor_atual?: number
+          valor_meta?: number
+        }
+        Relationships: []
+      }
       solicitacoes_lgpd: {
         Row: {
           data_conclusao: string | null

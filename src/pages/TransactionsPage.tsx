@@ -21,8 +21,8 @@ interface Transaction {
   tipo: 'receita' | 'despesa';
   valor: number;
   mes: string;
-  pagador?: string;
-  recebedor?: string;
+  pagador?: string | null;
+  recebedor?: string | null;
 }
 
 const TransactionsPage = () => {
@@ -74,6 +74,7 @@ const TransactionsPage = () => {
 
       const formattedData = data.map(item => ({
         ...item,
+        tipo: item.tipo as 'receita' | 'despesa',
         categoria_descricao: item.categoria?.descricao
       }));
 
@@ -95,7 +96,7 @@ const TransactionsPage = () => {
         .from('transacoes')
         .insert([{
           ...transactionData,
-          usuario_id: user?.id,
+          usuario_id: Number(user?.id),
         }])
         .select();
 

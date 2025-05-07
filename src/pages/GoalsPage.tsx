@@ -42,7 +42,7 @@ const GoalsPage = () => {
         .order('data_fim', { ascending: true });
 
       if (error) throw error;
-      setGoals(data || []);
+      setGoals(data as Goal[] || []);
     } catch (error: any) {
       toast({
         title: "Erro ao carregar metas",
@@ -110,7 +110,41 @@ const GoalsPage = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Metas de exemplo */}
+            {filteredGoals.map((goal) => (
+              <Card key={goal.id}>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg">{goal.descricao}</CardTitle>
+                  <CardDescription>
+                    R$ {goal.valor_atual.toFixed(2)} de R$ {goal.valor_meta.toFixed(2)}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="pb-2">
+                  <Progress value={calculateProgress(goal.valor_atual, goal.valor_meta)} className="h-2" />
+                  <p className="text-sm text-gray-500 mt-2">
+                    {calculateProgress(goal.valor_atual, goal.valor_meta)}% concluído • {calculateDaysRemaining(goal.data_fim)} dias restantes
+                  </p>
+                </CardContent>
+                <CardFooter className="pt-2">
+                  <div className="flex justify-between items-center w-full">
+                    <div className="text-xs text-gray-500">
+                      Início: {format(new Date(goal.data_inicio), 'dd/MM/yyyy')}
+                      <br />
+                      Fim: {format(new Date(goal.data_fim), 'dd/MM/yyyy')}
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="ghost" size="icon" title="Editar">
+                        <PenLine className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="icon" title="Excluir">
+                        <Trash2 className="h-4 w-4 text-red-500" />
+                      </Button>
+                    </div>
+                  </div>
+                </CardFooter>
+              </Card>
+            ))}
+            
+            {/* Example cards for design reference */}
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">Fundo de Emergência</CardTitle>
@@ -162,38 +196,6 @@ const GoalsPage = () => {
                     Início: {format(new Date(), 'dd/MM/yyyy')}
                     <br />
                     Fim: {format(new Date(Date.now() + 60 * 24 * 60 * 60 * 1000), 'dd/MM/yyyy')}
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="ghost" size="icon" title="Editar">
-                      <PenLine className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" title="Excluir">
-                      <Trash2 className="h-4 w-4 text-red-500" />
-                    </Button>
-                  </div>
-                </div>
-              </CardFooter>
-            </Card>
-
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg">Novo Notebook</CardTitle>
-                <CardDescription>
-                  R$ 3.500,00 de R$ 4.500,00
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="pb-2">
-                <Progress value={78} className="h-2" />
-                <p className="text-sm text-gray-500 mt-2">
-                  78% concluído • 30 dias restantes
-                </p>
-              </CardContent>
-              <CardFooter className="pt-2">
-                <div className="flex justify-between items-center w-full">
-                  <div className="text-xs text-gray-500">
-                    Início: {format(new Date(), 'dd/MM/yyyy')}
-                    <br />
-                    Fim: {format(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), 'dd/MM/yyyy')}
                   </div>
                   <div className="flex gap-2">
                     <Button variant="ghost" size="icon" title="Editar">
